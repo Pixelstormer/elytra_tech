@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.example.example_mod.ElytraTech;
-import com.example.example_mod.ExampleMod;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -42,7 +41,11 @@ public abstract class ElytraTechMixin extends LivingEntity implements ElytraTech
 	@Override
 	public void tickElytraTech() {
 		if (this.boostCooldownTimer > 0) {
-			this.boostCooldownTimer -= 1;
+			if (this.isFallFlying()) {
+				this.boostCooldownTimer -= 1;
+			} else {
+				this.boostCooldownTimer = 0;
+			}
 		}
 	}
 
