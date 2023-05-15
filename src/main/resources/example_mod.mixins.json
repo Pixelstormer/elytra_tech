@@ -4,10 +4,9 @@
   "package": "com.example.example_mod.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "EntityInvoker",
-    "EntityMixin",
-    "LivingEntityAccessor",
-    "LivingEntityMixin"
+    "ElytraTechMixin",
+    "TakeoffBoostMixin",
+    "TickMovementMixin"
   ],
   "client": [],
   "injectors": {

@@ -1,0 +1,11 @@
+- Tick boost cooldown
+- Check jump input
+- Reset cooldown upon landing
+
+- Perform in-flight boost
+
+- Perform takeoff boost
+
+- Allow strafing
+
+- Allow gliding
