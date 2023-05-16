@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 public abstract class TickMovementMixin extends LivingEntity {
 	protected TickMovementMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
+		throw new AssertionError();
 	}
 
 	@Inject(method = "tickMovement()V", at = @At("HEAD"))

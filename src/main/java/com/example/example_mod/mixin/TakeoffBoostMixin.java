@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 public abstract class TakeoffBoostMixin extends LivingEntity {
 	protected TakeoffBoostMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
+		throw new AssertionError();
 	}
 
 	public boolean shouldTakeoffBoost(float pitch) {

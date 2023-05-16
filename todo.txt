@@ -9,3 +9,7 @@
 - Allow strafing
 
 - Allow gliding
+
+- Config
+
+- Progression: Regen beacon on ender dragon respawning ritual?

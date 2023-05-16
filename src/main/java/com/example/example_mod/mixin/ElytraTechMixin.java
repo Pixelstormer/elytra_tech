@@ -29,6 +29,7 @@ public abstract class ElytraTechMixin extends LivingEntity implements ElytraTech
 
 	protected ElytraTechMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
+		throw new AssertionError();
 	}
 
 	@Inject(method = "<init>*", at = @At("RETURN"))
