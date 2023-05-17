@@ -39,13 +39,14 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	}
 
 	@Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isFallFlying()Z"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;sendPacket(Lnet/minecraft/network/packet/Packet;)V"), to = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;shouldSwimInFluids()Z")))
-	private void doMidAirBoost(CallbackInfo ci) {
+	private void doBoost(CallbackInfo ci) {
 		boolean startedJumpingThisTick = this.input.jumping && !this.wasJumpingPreviousTick;
 		boolean startedFallFlyingThisTick = this.isFallFlying() && !this.wasFallFlyingPreviousTick;
 		if (startedJumpingThisTick && this.isFallFlying() && !startedFallFlyingThisTick) {
 			ElytraTech tech = ((HasElytraTech) this).getElytraTech();
-			tech.midairBoost();
-			ClientPlayNetworking.send(ExampleMod.MID_AIR_BOOST_PACKET_ID, PacketByteBufs.empty());
+			if (tech.boost()) {
+				ClientPlayNetworking.send(ExampleMod.BOOST_PACKET_ID, PacketByteBufs.empty());
+			}
 		}
 	}
 }

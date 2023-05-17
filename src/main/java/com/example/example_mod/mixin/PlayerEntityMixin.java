@@ -38,9 +38,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements HasElytr
 	}
 
 	@Inject(method = "startFallFlying", at = @At("RETURN"))
-	private void elytraTech$doTakeoffBoost(CallbackInfo ci) {
+	private void elytraTech$onStartFallFlying(CallbackInfo ci) {
 		ElytraTech tech = ((HasElytraTech) this).getElytraTech();
-		tech.takeoffBoost();
+		tech.onTakeoff();
 	}
 
 	@Inject(method = "tickMovement", at = @At("HEAD"))

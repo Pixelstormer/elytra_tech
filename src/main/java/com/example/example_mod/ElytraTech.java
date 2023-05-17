@@ -6,28 +6,31 @@ import net.minecraft.util.math.Vec3d;
 public class ElytraTech {
 	// Configurable parameters
 
-	// Minimum time between each boost, measured in 1/60ths of a second(?)
-	public int boostCooldown;
-	// Amount that is added to velocity by each boost
+	// Amount that is added to velocity by boosting
 	public float boostSpeed;
+
+	// Minimum time between each boost, measured in ticks (1/20ths of a second?)
+	public int boostCooldown;
 
 	// Internal state
 
 	// The player that this instance is associated with
 	private PlayerEntity player;
 
-	// Counts down from boostCooldown to 0 to measure the boost cooldown period
-	private int boostCooldownTimer = 0;
+	// Gets set to {@link #boostCooldown} when a boost happens, and counts down to 0
+	// each tick. Is always 0 when not flying.
+	private int boostCooldownTimer;
 
 	public ElytraTech(PlayerEntity player) {
 		// TODO: load these values from a config file
-		this(player, 20, 0.8f);
+		this(player, 0.8f, 20);
 	}
 
-	public ElytraTech(PlayerEntity player, int boostCooldown, float boostSpeed) {
+	public ElytraTech(PlayerEntity player, float boostSpeed, int boostCooldown) {
 		this.player = player;
-		this.boostCooldown = boostCooldown;
 		this.boostSpeed = boostSpeed;
+		this.boostCooldown = boostCooldown;
+		this.boostCooldownTimer = 0;
 	}
 
 	public void tick() {
@@ -40,59 +43,34 @@ public class ElytraTech {
 		}
 	}
 
-	public void takeoffBoost() {
+	public void onTakeoff() {
 		// Only boost if the player is looking upwards
 		if (this.player.getPitch() < 0.0f) {
-			this.boost(ElytraBoostType.LookDirection);
-		} else {
-			this.boost(ElytraBoostType.Fake);
+			this.boost();
 		}
 	}
 
-	public void midairBoost() {
-		this.boost(ElytraBoostType.LookDirection);
-	}
-
-	public boolean boost(ElytraBoostType type) {
-		if (this.boostCooldownTimer > 0) {
-			return false;
+	public boolean boost() {
+		// Only boost if it's off cooldown
+		boolean shouldBoost = this.boostCooldownTimer <= 0;
+		if (shouldBoost) {
+			this.lookDirectionBoost(this.boostSpeed);
+			this.boostCooldownTimer = this.boostCooldown;
 		}
-
-		this.boostCooldownTimer = this.boostCooldown;
-		switch (type) {
-			case Velocity:
-				this.velocityBoost();
-				break;
-			case LookDirection:
-				this.lookDirectionBoost();
-				break;
-			case Fake:
-				break;
-		}
-
-		return true;
+		return shouldBoost;
 	}
 
-	private void velocityBoost() {
-		Vec3d velocity = this.player.getVelocity();
-		double length = velocity.length() + this.boostSpeed;
-		Vec3d normalised = velocity.normalize();
-		Vec3d result = normalised.multiply(length);
-		this.player.setVelocity(result);
-	}
-
-	private void lookDirectionBoost() {
+	private void lookDirectionBoost(float boostSpeed) {
 		Vec3d rotation = this.player.getRotationVector();
-		Vec3d boost = rotation.multiply(1.0 + this.boostSpeed);
+		Vec3d boost = rotation.multiply(boostSpeed);
 		this.player.addVelocity(boost);
 	}
 
-	public enum ElytraBoostType {
-		// A boost in the direction the player is moving
-		Velocity,
-		// A boost in the direction the player is looking
-		LookDirection,
-		// A boost that doesn't actually add any speed
-		Fake
+	private void velocityBoost(float boostSpeed) {
+		Vec3d velocity = this.player.getVelocity();
+		double length = velocity.length() + boostSpeed;
+		Vec3d normalised = velocity.normalize();
+		Vec3d result = normalised.multiply(length);
+		this.player.setVelocity(result);
 	}
 }
