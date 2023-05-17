@@ -1,6 +1,6 @@
 # Elytra Tech
 
-A Quilt mod that adds extra functionality to the Elytra, to improve its handling and UX.
+A [Quilt](https://quiltmc.org) mod that adds extra functionality to the Elytra, to improve its handling and UX.
 
 Still very much WIP.
 
