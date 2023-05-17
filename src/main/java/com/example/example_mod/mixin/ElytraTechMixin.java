@@ -82,6 +82,6 @@ public abstract class ElytraTechMixin extends LivingEntity implements ElytraTech
 	private void elytraTechLookDirectionBoost() {
 		Vec3d rotation = this.getRotationVector();
 		Vec3d boost = rotation.multiply(1.0 + this.boostSpeed);
-		this.setVelocity(boost);
+		this.addVelocity(boost);
 	}
 }
