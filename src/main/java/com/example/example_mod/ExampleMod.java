@@ -8,8 +8,6 @@ import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.example_mod.ElytraTech.ElytraBoostType;
-
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -39,7 +37,7 @@ public class ExampleMod implements ModInitializer {
 			ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 		server.execute(() -> {
 			ElytraTech tech = ((HasElytraTech) player).getElytraTech();
-			tech.elytraTechBoost(ElytraBoostType.LookDirection);
+			tech.midairBoost();
 		});
 	}
 }

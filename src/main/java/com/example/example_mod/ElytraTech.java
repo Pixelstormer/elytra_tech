@@ -30,7 +30,7 @@ public class ElytraTech {
 		this.boostSpeed = boostSpeed;
 	}
 
-	public void tickElytraTech() {
+	public void tick() {
 		if (this.boostCooldownTimer > 0) {
 			if (this.player.isFallFlying()) {
 				this.boostCooldownTimer -= 1;
@@ -40,7 +40,20 @@ public class ElytraTech {
 		}
 	}
 
-	public boolean elytraTechBoost(ElytraBoostType type) {
+	public void takeoffBoost() {
+		// Only boost if the player is looking upwards
+		if (this.player.getPitch() < 0.0f) {
+			this.boost(ElytraBoostType.LookDirection);
+		} else {
+			this.boost(ElytraBoostType.Fake);
+		}
+	}
+
+	public void midairBoost() {
+		this.boost(ElytraBoostType.LookDirection);
+	}
+
+	public boolean boost(ElytraBoostType type) {
 		if (this.boostCooldownTimer > 0) {
 			return false;
 		}
@@ -48,10 +61,10 @@ public class ElytraTech {
 		this.boostCooldownTimer = this.boostCooldown;
 		switch (type) {
 			case Velocity:
-				this.elytraTechVelocityBoost();
+				this.velocityBoost();
 				break;
 			case LookDirection:
-				this.elytraTechLookDirectionBoost();
+				this.lookDirectionBoost();
 				break;
 			case Fake:
 				break;
@@ -60,7 +73,7 @@ public class ElytraTech {
 		return true;
 	}
 
-	private void elytraTechVelocityBoost() {
+	private void velocityBoost() {
 		Vec3d velocity = this.player.getVelocity();
 		double length = velocity.length() + this.boostSpeed;
 		Vec3d normalised = velocity.normalize();
@@ -68,7 +81,7 @@ public class ElytraTech {
 		this.player.setVelocity(result);
 	}
 
-	private void elytraTechLookDirectionBoost() {
+	private void lookDirectionBoost() {
 		Vec3d rotation = this.player.getRotationVector();
 		Vec3d boost = rotation.multiply(1.0 + this.boostSpeed);
 		this.player.addVelocity(boost);

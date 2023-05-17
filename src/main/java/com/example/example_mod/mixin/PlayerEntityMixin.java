@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.example.example_mod.ElytraTech;
 import com.example.example_mod.HasElytraTech;
-import com.example.example_mod.ElytraTech.ElytraBoostType;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -38,24 +37,15 @@ public abstract class PlayerEntityMixin extends LivingEntity implements HasElytr
 		this.elytraTech = elytraTech;
 	}
 
-	public boolean shouldTakeoffBoost(float pitch) {
-		// Only boost if the player is looking upwards
-		return pitch < 0.0f;
-	}
-
 	@Inject(method = "startFallFlying", at = @At("RETURN"))
 	private void elytraTech$doTakeoffBoost(CallbackInfo ci) {
 		ElytraTech tech = ((HasElytraTech) this).getElytraTech();
-		if (this.shouldTakeoffBoost(this.getPitch())) {
-			tech.elytraTechBoost(ElytraBoostType.LookDirection);
-		} else {
-			tech.elytraTechBoost(ElytraBoostType.Fake);
-		}
+		tech.takeoffBoost();
 	}
 
 	@Inject(method = "tickMovement", at = @At("HEAD"))
 	private void elytraTech$onTickMovement(CallbackInfo ci) {
 		ElytraTech tech = ((HasElytraTech) this).getElytraTech();
-		tech.tickElytraTech();
+		tech.tick();
 	}
 }

@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.example.example_mod.ElytraTech;
 import com.example.example_mod.ExampleMod;
 import com.example.example_mod.HasElytraTech;
-import com.example.example_mod.ElytraTech.ElytraBoostType;
 import com.mojang.authlib.GameProfile;
 
 import net.minecraft.client.input.Input;
@@ -45,7 +44,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 		boolean startedFallFlyingThisTick = this.isFallFlying() && !this.wasFallFlyingPreviousTick;
 		if (startedJumpingThisTick && this.isFallFlying() && !startedFallFlyingThisTick) {
 			ElytraTech tech = ((HasElytraTech) this).getElytraTech();
-			tech.elytraTechBoost(ElytraBoostType.LookDirection);
+			tech.midairBoost();
 			ClientPlayNetworking.send(ExampleMod.MID_AIR_BOOST_PACKET_ID, PacketByteBufs.empty());
 		}
 	}
