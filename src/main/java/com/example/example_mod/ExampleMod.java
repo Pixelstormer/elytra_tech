@@ -38,7 +38,7 @@ public class ExampleMod implements ModInitializer {
 	private static void receiveMidAirBoostPacket(MinecraftServer server, ServerPlayerEntity player,
 			ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 		server.execute(() -> {
-			ElytraTech tech = (ElytraTech) player;
+			ElytraTech tech = ((HasElytraTech) player).getElytraTech();
 			tech.elytraTechBoost(ElytraBoostType.LookDirection);
 		});
 	}

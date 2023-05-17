@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.example.example_mod.ElytraTech;
 import com.example.example_mod.ExampleMod;
+import com.example.example_mod.HasElytraTech;
 import com.example.example_mod.ElytraTech.ElytraBoostType;
 import com.mojang.authlib.GameProfile;
 
@@ -43,7 +44,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 		boolean startedJumpingThisTick = this.input.jumping && !this.wasJumpingPreviousTick;
 		boolean startedFallFlyingThisTick = this.isFallFlying() && !this.wasFallFlyingPreviousTick;
 		if (startedJumpingThisTick && this.isFallFlying() && !startedFallFlyingThisTick) {
-			ElytraTech tech = (ElytraTech) this;
+			ElytraTech tech = ((HasElytraTech) this).getElytraTech();
 			tech.elytraTechBoost(ElytraBoostType.LookDirection);
 			ClientPlayNetworking.send(ExampleMod.MID_AIR_BOOST_PACKET_ID, PacketByteBufs.empty());
 		}
