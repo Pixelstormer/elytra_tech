@@ -2,24 +2,24 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "com.pixelstorm",
-		"id": "elytra_test",
+		"id": "elytra_tech",
 		"version": "${version}",
 		"metadata": {
-			"name": "Elytra Test",
+			"name": "Elytra Tech",
 			"description": "Improves elytra flight handling",
 			"contributors": {
 				"Your name here": "Pixelstorm"
 			},
 			"contact": {
-				"homepage": "https://example.com/",
-				"issues": "https://github.com/QuiltMC/quilt-template-mod/issues",
-				"sources": "https://github.com/QuiltMC/quilt-template-mod"
+				"homepage": "https://github.com/Pixelstormer/elytra_tech/",
+				"issues": "https://github.com/Pixelstormer/elytra_tech/issues",
+				"sources": "https://github.com/Pixelstormer/elytra_tech"
 			},
-			"icon": "assets/example_mod/icon.png"
+			"icon": "assets/elytra_tech/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "com.example.example_mod.ExampleMod"
+			"init": "com.pixelstorm.elytra_tech.ElytraTech"
 		},
 		"depends": [
 			{
@@ -37,6 +37,6 @@
 		]
 	},
 	"mixin": [
-		"example_mod.mixins.json"
+		"elytra_tech.mixins.json"
 	]
 }

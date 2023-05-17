@@ -1,9 +1,9 @@
-package com.example.example_mod;
+package com.pixelstorm.elytra_tech;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 
-public class ElytraTech {
+public class ElytraBooster {
 	// Configurable parameters
 
 	// Amount that is added to velocity by boosting
@@ -21,12 +21,12 @@ public class ElytraTech {
 	// each tick. Is always 0 when not flying.
 	private int boostCooldownTimer;
 
-	public ElytraTech(PlayerEntity player) {
+	public ElytraBooster(PlayerEntity player) {
 		// TODO: load these values from a config file
 		this(player, 0.8f, 20);
 	}
 
-	public ElytraTech(PlayerEntity player, float boostSpeed, int boostCooldown) {
+	public ElytraBooster(PlayerEntity player, float boostSpeed, int boostCooldown) {
 		this.player = player;
 		this.boostSpeed = boostSpeed;
 		this.boostCooldown = boostCooldown;

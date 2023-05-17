@@ -1,4 +1,4 @@
-package com.example.example_mod.mixin;
+package com.pixelstorm.elytra_tech.mixin;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.Vec3d;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.example.example_mod.ExampleMod;
+import com.pixelstorm.elytra_tech.ElytraTech;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {

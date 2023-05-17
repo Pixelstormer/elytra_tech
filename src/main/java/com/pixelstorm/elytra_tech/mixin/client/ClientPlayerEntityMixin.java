@@ -1,4 +1,4 @@
-package com.example.example_mod.mixin.client;
+package com.pixelstorm.elytra_tech.mixin.client;
 
 import org.quiltmc.qsl.networking.api.PacketByteBufs;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.example.example_mod.ElytraTech;
-import com.example.example_mod.ExampleMod;
-import com.example.example_mod.HasElytraTech;
 import com.mojang.authlib.GameProfile;
+import com.pixelstorm.elytra_tech.ElytraBooster;
+import com.pixelstorm.elytra_tech.ElytraTech;
+import com.pixelstorm.elytra_tech.HasElytraBooster;
 
 import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -43,9 +43,9 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 		boolean startedJumpingThisTick = this.input.jumping && !this.wasJumpingPreviousTick;
 		boolean startedFallFlyingThisTick = this.isFallFlying() && !this.wasFallFlyingPreviousTick;
 		if (startedJumpingThisTick && this.isFallFlying() && !startedFallFlyingThisTick) {
-			ElytraTech tech = ((HasElytraTech) this).getElytraTech();
-			if (tech.boost()) {
-				ClientPlayNetworking.send(ExampleMod.BOOST_PACKET_ID, PacketByteBufs.empty());
+			ElytraBooster booster = ((HasElytraBooster) this).getElytraBooster();
+			if (booster.boost()) {
+				ClientPlayNetworking.send(ElytraTech.BOOST_PACKET_ID, PacketByteBufs.empty());
 			}
 		}
 	}

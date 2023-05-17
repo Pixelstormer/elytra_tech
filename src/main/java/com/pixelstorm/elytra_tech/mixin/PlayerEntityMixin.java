@@ -1,12 +1,12 @@
-package com.example.example_mod.mixin;
+package com.pixelstorm.elytra_tech.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.example.example_mod.ElytraTech;
-import com.example.example_mod.HasElytraTech;
+import com.pixelstorm.elytra_tech.ElytraBooster;
+import com.pixelstorm.elytra_tech.HasElytraBooster;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -14,8 +14,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements HasElytraTech {
-	private ElytraTech elytraTech;
+public abstract class PlayerEntityMixin extends LivingEntity implements HasElytraBooster {
+	private ElytraBooster elytraBooster;
 
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
@@ -24,28 +24,28 @@ public abstract class PlayerEntityMixin extends LivingEntity implements HasElytr
 
 	@Inject(method = "<init>*", at = @At("RETURN"))
 	private void elytraTech$onConstruct(CallbackInfo ci) {
-		this.elytraTech = new ElytraTech((PlayerEntity) (Object) this);
+		this.elytraBooster = new ElytraBooster((PlayerEntity) (Object) this);
 	}
 
 	@Override
-	public ElytraTech getElytraTech() {
-		return this.elytraTech;
+	public ElytraBooster getElytraBooster() {
+		return this.elytraBooster;
 	}
 
 	@Override
-	public void setElytraTech(ElytraTech elytraTech) {
-		this.elytraTech = elytraTech;
+	public void setElytraBooster(ElytraBooster elytraBooster) {
+		this.elytraBooster = elytraBooster;
 	}
 
 	@Inject(method = "startFallFlying", at = @At("RETURN"))
 	private void elytraTech$onStartFallFlying(CallbackInfo ci) {
-		ElytraTech tech = ((HasElytraTech) this).getElytraTech();
-		tech.onTakeoff();
+		ElytraBooster booster = ((HasElytraBooster) this).getElytraBooster();
+		booster.onTakeoff();
 	}
 
 	@Inject(method = "tickMovement", at = @At("HEAD"))
 	private void elytraTech$onTickMovement(CallbackInfo ci) {
-		ElytraTech tech = ((HasElytraTech) this).getElytraTech();
-		tech.tick();
+		ElytraBooster booster = ((HasElytraBooster) this).getElytraBooster();
+		booster.tick();
 	}
 }
