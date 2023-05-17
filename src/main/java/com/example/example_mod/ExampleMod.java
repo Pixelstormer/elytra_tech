@@ -23,19 +23,19 @@ public class ExampleMod implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger("Elytra Test");
 
-	public static final Identifier MID_FLIGHT_BOOST_PACKET_ID = new Identifier("elytra_tech", "mid_flight_boost");
+	public static final Identifier MID_AIR_BOOST_PACKET_ID = new Identifier("elytra_tech", "mid_air_boost");
 
 	@Override
 	public void onInitialize(ModContainer mod) {
 		LOGGER.info("Hello Quilt world from {}!", mod.metadata().name());
 
 		ServerPlayConnectionEvents.INIT.register((handler, server) -> {
-			ServerPlayNetworking.registerReceiver(handler, MID_FLIGHT_BOOST_PACKET_ID,
-					ExampleMod::receiveMidFlightBoostPacket);
+			ServerPlayNetworking.registerReceiver(handler, MID_AIR_BOOST_PACKET_ID,
+					ExampleMod::receiveMidAirBoostPacket);
 		});
 	}
 
-	private static void receiveMidFlightBoostPacket(MinecraftServer server, ServerPlayerEntity player,
+	private static void receiveMidAirBoostPacket(MinecraftServer server, ServerPlayerEntity player,
 			ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 		server.execute(() -> {
 			ElytraTech tech = (ElytraTech) player;

@@ -14,8 +14,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 @Mixin(PlayerEntity.class)
-public abstract class TakeoffBoostMixin extends LivingEntity {
-	protected TakeoffBoostMixin(EntityType<? extends LivingEntity> entityType, World world) {
+public abstract class PlayerEntityMixin extends LivingEntity {
+	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
 		throw new AssertionError();
 	}
@@ -25,13 +25,19 @@ public abstract class TakeoffBoostMixin extends LivingEntity {
 		return pitch < 0.0f;
 	}
 
-	@Inject(method = "startFallFlying()V", at = @At("RETURN"))
-	private void elytraTech$performTakeoffBoost(CallbackInfo ci) {
+	@Inject(method = "startFallFlying", at = @At("RETURN"))
+	private void elytraTech$doTakeoffBoost(CallbackInfo ci) {
 		ElytraTech tech = (ElytraTech) this;
 		if (this.shouldTakeoffBoost(this.getPitch())) {
 			tech.elytraTechBoost(ElytraBoostType.LookDirection);
 		} else {
 			tech.elytraTechBoost(ElytraBoostType.Fake);
 		}
+	}
+
+	@Inject(method = "tickMovement", at = @At("HEAD"))
+	private void elytraTech$onTickMovement(CallbackInfo ci) {
+		ElytraTech tech = (ElytraTech) this;
+		tech.tickElytraTech();
 	}
 }

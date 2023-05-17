@@ -5,8 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ElytraTechMixin",
-    "TakeoffBoostMixin",
-    "TickMovementMixin"
+    "PlayerEntityMixin"
   ],
   "client": [
     "client.ClientPlayerEntityMixin"

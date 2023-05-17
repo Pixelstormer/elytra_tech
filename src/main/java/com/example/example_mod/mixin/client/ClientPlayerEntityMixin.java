@@ -22,7 +22,7 @@ import net.minecraft.client.world.ClientWorld;
 @Mixin(ClientPlayerEntity.class)
 public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
 	@Shadow
-	private Input input;
+	public Input input;
 
 	private boolean wasJumpingPreviousTick;
 	private boolean wasFallFlyingPreviousTick;
@@ -33,19 +33,19 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	}
 
 	@Inject(method = "tickMovement", at = @At("HEAD"))
-	private void getPriorJumpState(CallbackInfo ci) {
+	private void getPreviousTickState(CallbackInfo ci) {
 		this.wasJumpingPreviousTick = this.input.jumping;
 		this.wasFallFlyingPreviousTick = this.isFallFlying();
 	}
 
-	@Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isFallFlying()Z"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;sendPacket(Lnet/minecraft/network/packet/Packet;)V"), to = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isTouchingWater()Z", ordinal = 3)))
-	private void performMidFlightBoost(CallbackInfo ci) {
+	@Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isFallFlying()Z"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;sendPacket(Lnet/minecraft/network/packet/Packet;)V"), to = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;shouldSwimInFluids()Z")))
+	private void doMidAirBoost(CallbackInfo ci) {
 		boolean startedJumpingThisTick = this.input.jumping && !this.wasJumpingPreviousTick;
 		boolean startedFallFlyingThisTick = this.isFallFlying() && !this.wasFallFlyingPreviousTick;
 		if (startedJumpingThisTick && this.isFallFlying() && !startedFallFlyingThisTick) {
 			ElytraTech tech = (ElytraTech) this;
 			tech.elytraTechBoost(ElytraBoostType.LookDirection);
-			ClientPlayNetworking.send(ExampleMod.MID_FLIGHT_BOOST_PACKET_ID, PacketByteBufs.empty());
+			ClientPlayNetworking.send(ExampleMod.MID_AIR_BOOST_PACKET_ID, PacketByteBufs.empty());
 		}
 	}
 }
