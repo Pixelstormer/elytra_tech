@@ -8,7 +8,9 @@
     "TakeoffBoostMixin",
     "TickMovementMixin"
   ],
-  "client": [],
+  "client": [
+    "client.ClientPlayerEntityMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

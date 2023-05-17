@@ -36,5 +36,7 @@
 			}
 		]
 	},
-	"mixin": "example_mod.mixins.json"
+	"mixin": [
+		"example_mod.mixins.json"
+	]
 }

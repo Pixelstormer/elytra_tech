@@ -8,7 +8,7 @@
 
 - Allow strafing
 
-- Allow gliding
+- Allow gliding (Lock heading?)
 
 - Config
 
