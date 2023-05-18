@@ -4,7 +4,7 @@
 
 - Config
 
-- Progression: Regen beacon on ender dragon respawning ritual?
+- Progression: Beacon on ender dragon respawning ritual?
 
 - Auto start flying if midair for too long?
 

@@ -1,6 +1,8 @@
 package com.pixelstorm.elytra_tech;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 
 public class ElytraBooster {
@@ -56,6 +58,8 @@ public class ElytraBooster {
 		if (shouldBoost) {
 			this.lookDirectionBoost(this.boostSpeed);
 			this.boostCooldownTimer = this.boostCooldown;
+			this.player.getWorld().playSoundFromEntity(player, player,
+					SoundEvents.ENTITY_ENDER_DRAGON_FLAP, SoundCategory.PLAYERS, 0.35f, 1.1f);
 		}
 		return shouldBoost;
 	}
