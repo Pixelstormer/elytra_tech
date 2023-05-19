@@ -1,7 +1,10 @@
-- Allow strafing
-
-- Allow gliding (Lock heading?)
+- New mechanics
+    - Allow strafing
+    - Allow gliding (Lock heading?)
+    - Auto start flying if midair for too long?
+    - Alt. takeoff: boosting controlled by holding Sneak rather than camera pitch?
 
 - Progression: Beacon on ender dragon respawning ritual?
 
-- Auto start flying if midair for too long?
+- Fixes:
+    - Improve interactions with water

@@ -58,7 +58,7 @@ public class ElytraBooster {
 			this.lookDirectionBoost(this.boostSpeed);
 			this.boostCooldownTimer = this.boostCooldown;
 			this.player.getWorld().playSoundFromEntity(player, player,
-					SoundEvents.ENTITY_ENDER_DRAGON_FLAP, SoundCategory.PLAYERS, 0.35f, 1.1f);
+					ElytraTech.ELYTRA_FLAP_SOUND_EVENT, SoundCategory.PLAYERS, 1, 1);
 		}
 		return shouldBoost;
 	}

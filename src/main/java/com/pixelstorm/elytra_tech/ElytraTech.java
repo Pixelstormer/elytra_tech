@@ -9,10 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class ElytraTech implements ModInitializer {
@@ -21,7 +23,10 @@ public class ElytraTech implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger("Elytra Tech");
 
-	public static final Identifier BOOST_PACKET_ID = new Identifier("elytra_tech", "boost");
+	public static final Identifier BOOST_PACKET_ID = new Identifier("elytra_tech", "elytra.boost");
+
+	public static final Identifier ELYTRA_FLAP_SOUND_ID = new Identifier("elytra_tech", "elytra.flap");
+	public static final SoundEvent ELYTRA_FLAP_SOUND_EVENT = SoundEvent.createVariableRangeEvent(ELYTRA_FLAP_SOUND_ID);
 
 	public static Config config;
 
@@ -30,6 +35,8 @@ public class ElytraTech implements ModInitializer {
 		config = ConfigLoader.loadFromDefaultLocation();
 		LOGGER.info("Loaded config:");
 		LOGGER.info(config.toString());
+
+		Registry.register(Registries.SOUND_EVENT, ELYTRA_FLAP_SOUND_ID, ELYTRA_FLAP_SOUND_EVENT);
 
 		ServerPlayConnectionEvents.INIT.register((handler, server) -> {
 			ServerPlayNetworking.registerReceiver(handler, BOOST_PACKET_ID,

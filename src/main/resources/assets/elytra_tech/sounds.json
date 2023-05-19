@@ -1,0 +1,13 @@
+{
+  "elytra.flap": {
+    "subtitle": "subtitles.elytra_tech.elytra.flap",
+    "sounds": [
+      {
+        "name": "entity.ender_dragon.flap",
+        "type": "event",
+        "volume": 0.35,
+        "pitch": 1.1
+      }
+    ]
+  }
+}
