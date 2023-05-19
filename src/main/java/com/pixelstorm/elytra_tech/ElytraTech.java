@@ -23,7 +23,7 @@ public class ElytraTech implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger("Elytra Tech");
 
-	public static final Identifier BOOST_PACKET_ID = new Identifier("elytra_tech", "elytra.boost");
+	public static final Identifier ELYTRA_BOOST_PACKET_ID = new Identifier("elytra_tech", "elytra.boost");
 
 	public static final Identifier ELYTRA_FLAP_SOUND_ID = new Identifier("elytra_tech", "elytra.flap");
 	public static final SoundEvent ELYTRA_FLAP_SOUND_EVENT = SoundEvent.createVariableRangeEvent(ELYTRA_FLAP_SOUND_ID);
@@ -39,7 +39,7 @@ public class ElytraTech implements ModInitializer {
 		Registry.register(Registries.SOUND_EVENT, ELYTRA_FLAP_SOUND_ID, ELYTRA_FLAP_SOUND_EVENT);
 
 		ServerPlayConnectionEvents.INIT.register((handler, server) -> {
-			ServerPlayNetworking.registerReceiver(handler, BOOST_PACKET_ID,
+			ServerPlayNetworking.registerReceiver(handler, ELYTRA_BOOST_PACKET_ID,
 					ElytraTech::receiveBoostPacket);
 		});
 	}

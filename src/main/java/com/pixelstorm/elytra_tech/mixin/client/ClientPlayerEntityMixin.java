@@ -45,7 +45,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 		if (startedJumpingThisTick && this.isFallFlying() && !startedFallFlyingThisTick) {
 			ElytraBooster booster = ((HasElytraBooster) this).getElytraBooster();
 			if (booster.boost()) {
-				ClientPlayNetworking.send(ElytraTech.BOOST_PACKET_ID, PacketByteBufs.empty());
+				ClientPlayNetworking.send(ElytraTech.ELYTRA_BOOST_PACKET_ID, PacketByteBufs.empty());
 			}
 		}
 	}
