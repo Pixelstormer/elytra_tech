@@ -24,8 +24,7 @@ public class ElytraBooster {
 	private int boostCooldownTimer;
 
 	public ElytraBooster(PlayerEntity player) {
-		// TODO: load these values from a config file
-		this(player, 0.8f, 20);
+		this(player, ElytraTech.config.boostSpeed, ElytraTech.config.boostCooldown);
 	}
 
 	public ElytraBooster(PlayerEntity player, float boostSpeed, int boostCooldown) {

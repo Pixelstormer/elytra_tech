@@ -1,0 +1,8 @@
+# This is the default config file for Elytra Tech, version ${version}.
+
+# Configuration values for elytra boosting
+[boosting]
+# Amount that is added to velocity by boosting
+speed = 0.8
+# Minimum time between each boost, measured in ticks (1/20ths of a second?)
+cooldown = 20

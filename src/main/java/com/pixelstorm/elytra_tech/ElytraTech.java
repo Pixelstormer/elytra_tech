@@ -23,8 +23,14 @@ public class ElytraTech implements ModInitializer {
 
 	public static final Identifier BOOST_PACKET_ID = new Identifier("elytra_tech", "boost");
 
+	public static Config config;
+
 	@Override
 	public void onInitialize(ModContainer mod) {
+		config = ConfigLoader.loadFromDefaultLocation();
+		LOGGER.info("Loaded config:");
+		LOGGER.info(config.toString());
+
 		ServerPlayConnectionEvents.INIT.register((handler, server) -> {
 			ServerPlayNetworking.registerReceiver(handler, BOOST_PACKET_ID,
 					ElytraTech::receiveBoostPacket);

@@ -2,8 +2,6 @@
 
 - Allow gliding (Lock heading?)
 
-- Config
-
 - Progression: Beacon on ender dragon respawning ritual?
 
 - Auto start flying if midair for too long?
