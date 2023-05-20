@@ -54,7 +54,7 @@ remapJar {
 processResources {
 	inputs.property 'version', version
 
-	filesMatching(['quilt.mod.json', 'default_config.toml']) {
+	filesMatching(['quilt.mod.json', 'data/default_config.toml']) {
 		expand "version": version
 	}
 }
