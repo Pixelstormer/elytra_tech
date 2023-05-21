@@ -2,7 +2,6 @@ package com.pixelstorm.elytra_tech;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 
 public class ElytraBooster {

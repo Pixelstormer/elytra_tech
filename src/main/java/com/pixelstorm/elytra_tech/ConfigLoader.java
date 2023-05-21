@@ -3,6 +3,7 @@ package com.pixelstorm.elytra_tech;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -25,7 +26,7 @@ public class ConfigLoader {
 		return QuiltLoader.getConfigDir().resolve(CONFIG_FILENAME);
 	}
 
-	public static Config loadFromDefaultLocation() {
+	public static Config loadFromDefaultPath() {
 		Path configPath = getDefaultConfigPath();
 		if (Files.exists(configPath)) {
 			return loadFromPath(configPath);
@@ -113,7 +114,7 @@ public class ConfigLoader {
 	}
 
 	public static InputStream getDefaultConfigBytes() {
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(DEFAULT_CONFIG_RESOURCE_PATH);
+		return ElytraTech.CLASSLOADER.getResourceAsStream(DEFAULT_CONFIG_RESOURCE_PATH);
 	}
 
 	public static Config loadDefaultConfig() {
@@ -133,11 +134,20 @@ public class ConfigLoader {
 	public static void writeDefaultConfig(Path configPath) throws IOException {
 		// Use CREATE_NEW instead of the default of CREATE to avoid overwriting an
 		// existing file
-		InputStream stream = getDefaultConfigBytes();
-		Files.write(configPath, stream.readAllBytes(),
-				StandardOpenOption.CREATE_NEW, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+		try (InputStream input = getDefaultConfigBytes();
+				OutputStream output = Files.newOutputStream(configPath, StandardOpenOption.CREATE_NEW,
+						StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);) {
+			input.transferTo(output);
+		}
 	}
 
+	/**
+	 * Collects the output of {@link Throwable#printStackTrace()} to a
+	 * {@link String}, because there is no built-in method to do this.
+	 *
+	 * @param e The throwable to get the stack trace of
+	 * @return The printed stack trace of the given throwable
+	 */
 	public static String getPrintedStackTrace(Throwable e) {
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 		try (PrintStream printStream = new PrintStream(byteStream)) {

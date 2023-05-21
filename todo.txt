@@ -8,3 +8,4 @@
 
 - Fixes:
     - Improve interactions with water
+    - Prompt to delete/regen config file if loading from default location failed

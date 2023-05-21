@@ -30,9 +30,12 @@ public class ElytraTech implements ModInitializer {
 
 	public static Config config;
 
+	public static ClassLoader CLASSLOADER;
+
 	@Override
 	public void onInitialize(ModContainer mod) {
-		config = ConfigLoader.loadFromDefaultLocation();
+		CLASSLOADER = mod.getClassLoader();
+		config = ConfigLoader.loadFromDefaultPath();
 		LOGGER.info("Loaded config:");
 		LOGGER.info(config.toString());
 
