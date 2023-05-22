@@ -1,14 +1,10 @@
 package com.pixelstorm.elytra_tech;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.util.List;
 
 import org.quiltmc.loader.api.QuiltLoader;
 
@@ -38,9 +34,8 @@ public class ConfigLoader {
 				writeDefaultConfig(configPath);
 			} catch (IOException e) {
 				ElytraTech.LOGGER.error(
-						"Could not write default config to the aforementioned location! The default config will still be loaded for this session, but this error may happen again if the issue is not fixed:");
-				ElytraTech.LOGGER.error(getPrintedStackTrace(e));
-
+						"Could not write default config to the aforementioned location! The default config will still be loaded for this session, but this error may happen again if the issue is not fixed:",
+						e);
 			}
 			return loadDefaultConfig();
 		}
@@ -51,29 +46,35 @@ public class ConfigLoader {
 		try {
 			result = Toml.parse(configPath);
 		} catch (IOException e) {
-			ElytraTech.LOGGER.error(
-					"Could not load config file '{}' due to an IO error! The default config will be loaded instead:",
-					configPath);
-			ElytraTech.LOGGER.error(getPrintedStackTrace(e));
+			ElytraTech.LOGGER.error(String.format(
+					"Could not load config file '%s' due to an IO error! The default config will be loaded instead:",
+					configPath), e);
 			return loadDefaultConfig();
 		}
 
 		if (result.hasErrors()) {
-			ElytraTech.LOGGER.error(
-					"Could not load config file '{}' due to TOML parsing errors! The default config will be loaded instead:",
-					configPath);
-			for (TomlParseError error : result.errors()) {
-				ElytraTech.LOGGER.error(getPrintedStackTrace(error));
+			List<TomlParseError> errors = result.errors();
+			TomlParseError firstError = errors.get(0);
+			if (errors.size() == 1) {
+				ElytraTech.LOGGER.error(String.format(
+						"Could not load config file '%s' due to a TOML parsing error! The default config will be loaded instead:",
+						configPath), firstError);
+			} else {
+				for (TomlParseError e : errors.subList(1, errors.size())) {
+					firstError.addSuppressed(e);
+				}
+				ElytraTech.LOGGER.error(String.format(
+						"Could not load config file '%s' due to TOML parsing errors! The default config will be loaded instead:",
+						configPath), firstError);
 			}
 			return loadDefaultConfig();
 		} else {
 			try {
 				return loadFromToml(result);
 			} catch (IllegalArgumentException e) {
-				ElytraTech.LOGGER.error(
-						"Could not load config file '{}' as it is malformed! The default config will be loaded instead:",
-						configPath);
-				ElytraTech.LOGGER.error(getPrintedStackTrace(e));
+				ElytraTech.LOGGER.error(String.format(
+						"Could not load config file '%s' as it is malformed! The default config will be loaded instead:",
+						configPath), e);
 				return loadDefaultConfig();
 			}
 		}
@@ -125,34 +126,14 @@ public class ConfigLoader {
 			int cooldown = toml.getLong("boosting.cooldown").intValue();
 			return new Config(speed, cooldown);
 		} catch (Exception e) {
-			ElytraTech.LOGGER.error("Could not load the default config! This should never happen:");
-			ElytraTech.LOGGER.error(getPrintedStackTrace(e));
+			ElytraTech.LOGGER.error("Could not load the default config! This should never happen:", e);
 			throw new RuntimeException(e);
 		}
 	}
 
 	public static void writeDefaultConfig(Path configPath) throws IOException {
-		// Use CREATE_NEW instead of the default of CREATE to avoid overwriting an
-		// existing file
-		try (InputStream input = getDefaultConfigBytes();
-				OutputStream output = Files.newOutputStream(configPath, StandardOpenOption.CREATE_NEW,
-						StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);) {
-			input.transferTo(output);
+		try (InputStream input = getDefaultConfigBytes();) {
+			Files.copy(input, configPath);
 		}
-	}
-
-	/**
-	 * Collects the output of {@link Throwable#printStackTrace()} to a
-	 * {@link String}, because there is no built-in method to do this.
-	 *
-	 * @param e The throwable to get the stack trace of
-	 * @return The printed stack trace of the given throwable
-	 */
-	public static String getPrintedStackTrace(Throwable e) {
-		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-		try (PrintStream printStream = new PrintStream(byteStream)) {
-			e.printStackTrace(printStream);
-		}
-		return byteStream.toString(StandardCharsets.UTF_8);
 	}
 }
