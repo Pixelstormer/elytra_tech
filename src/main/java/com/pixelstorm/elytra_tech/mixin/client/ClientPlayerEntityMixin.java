@@ -13,6 +13,7 @@ import com.mojang.authlib.GameProfile;
 import com.pixelstorm.elytra_tech.CanFreeLook;
 import com.pixelstorm.elytra_tech.ElytraBooster;
 import com.pixelstorm.elytra_tech.ElytraTech;
+import com.pixelstorm.elytra_tech.ElytraTechClient;
 import com.pixelstorm.elytra_tech.HasElytraBooster;
 
 import net.minecraft.client.input.Input;
@@ -28,6 +29,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 
 	private float freeLookPitch;
 	private float freeLookYaw;
+	private boolean isFreeLooking;
 
 	private boolean wasJumpingPreviousTick;
 	private boolean wasFallFlyingPreviousTick;
@@ -82,5 +84,15 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Override
 	public float getFreeLookYaw() {
 		return this.freeLookYaw;
+	}
+
+	@Override
+	public boolean isFreeLooking() {
+		return this.isFreeLooking;
+	}
+
+	@Override
+	public void setFreeLooking(boolean isFreeLooking) {
+		this.isFreeLooking = isFreeLooking;
 	}
 }

@@ -10,4 +10,8 @@ public interface CanFreeLook {
 	void setFreeLookYaw(float yaw);
 
 	float getFreeLookYaw();
+
+	void setFreeLooking(boolean isFreeLooking);
+
+	boolean isFreeLooking();
 }

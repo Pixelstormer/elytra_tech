@@ -1,12 +1,8 @@
 - New mechanics
     - Freelook mechanic
-        - Allow looking around without changing your trajectory/heading
-        - Controlled by dedicated keybind, can choose between toggle or hold
-        - Camera snaps back to original orientation when turned off
-        - Like in War Thunder
-        - For looking at things without also flying towards them
-        - For circling/hovering to observe things from a vantage point, without needing blocks to stand on
-        - For balance: Must not allow no-risk landings
+        - Can choose between toggle or hold
+        - Held item/hand model shouldn't follow freelook orientation, should stick to original orientation
+        - Roll camera when looking behind self?
     - Auto start flying if midair for too long?
         - Make flying not a separate state, so player is 'flying' at all times when midair?
     - Alt. takeoff: boosting controlled by holding Sneak rather than camera pitch?
