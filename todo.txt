@@ -10,6 +10,7 @@
     - Auto start flying if midair for too long?
         - Make flying not a separate state, so player is 'flying' at all times when midair?
     - Alt. takeoff: boosting controlled by holding Sneak rather than camera pitch?
+        - Or while sprinting, or transitioning from sprinting to sneaking, etc?
 
 - Progression: Beacon on ender dragon respawning ritual?
     - Activate any level beacon such that beam intersects the epicenter of the ritual (The point where the beams converge and the dragon spawns)
@@ -23,3 +24,4 @@
             - When flying underwater from this, boosting on jump input interferes with swimming input to go up
         - Merge swimming/flying states?
     - Prompt to delete/regen config file if loading from default location failed
+    - Changing dimensions while elytra flying causes wind noise to get stuck playing
