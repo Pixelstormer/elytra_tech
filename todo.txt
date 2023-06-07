@@ -23,5 +23,4 @@
         - Vanilla issue: Cannot start flying in water, but entering water while flying doesn't stop flying
             - When flying underwater from this, boosting on jump input interferes with swimming input to go up
         - Merge swimming/flying states?
-    - Prompt to delete/regen config file if loading from default location failed
     - Changing dimensions while elytra flying causes wind noise to get stuck playing
