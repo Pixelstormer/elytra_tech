@@ -1,12 +1,9 @@
 - New mechanics
-    - Allow strafing
+    - Freelook mechanic
+        - Allow looking around without changing your trajectory/heading
         - For looking at things without also flying towards them
-    - Allow cruising
-        - Maintains altitude, even at low horizontal speeds
         - For circling/hovering to observe things from a vantage point, without needing blocks to stand on
         - For balance: Must not allow no-risk landings
-            - Lock heading?
-            - Prevent cruising if too close to ground?
     - Auto start flying if midair for too long?
         - Make flying not a separate state, so player is 'flying' at all times when midair?
     - Alt. takeoff: boosting controlled by holding Sneak rather than camera pitch?
