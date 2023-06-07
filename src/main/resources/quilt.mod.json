@@ -19,6 +19,7 @@
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
+			"client_init": "com.pixelstorm.elytra_tech.ElytraTechClient",
 			"init": "com.pixelstorm.elytra_tech.ElytraTech"
 		},
 		"depends": [

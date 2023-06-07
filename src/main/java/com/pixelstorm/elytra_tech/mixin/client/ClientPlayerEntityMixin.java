@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.authlib.GameProfile;
+import com.pixelstorm.elytra_tech.CanFreeLook;
 import com.pixelstorm.elytra_tech.ElytraBooster;
 import com.pixelstorm.elytra_tech.ElytraTech;
 import com.pixelstorm.elytra_tech.HasElytraBooster;
@@ -18,11 +19,15 @@ import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.util.math.MathHelper;
 
 @Mixin(ClientPlayerEntity.class)
-public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
+public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity implements CanFreeLook {
 	@Shadow
 	public Input input;
+
+	private float freeLookPitch;
+	private float freeLookYaw;
 
 	private boolean wasJumpingPreviousTick;
 	private boolean wasFallFlyingPreviousTick;
@@ -48,5 +53,34 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 				ClientPlayNetworking.send(ElytraTech.ELYTRA_BOOST_PACKET_ID, PacketByteBufs.empty());
 			}
 		}
+	}
+
+	@Override
+	public void changeFreeLookDirection(double cursorDeltaX, double cursorDeltaY) {
+		float pitchDelta = (float) cursorDeltaY * 0.15F;
+		this.setFreeLookPitch(MathHelper.clamp(this.getFreeLookPitch() + pitchDelta, -90.0F, 90.0F));
+
+		float yawDelta = (float) cursorDeltaX * 0.15F;
+		this.setFreeLookYaw(this.getFreeLookYaw() + yawDelta);
+	}
+
+	@Override
+	public void setFreeLookPitch(float pitch) {
+		this.freeLookPitch = pitch;
+	}
+
+	@Override
+	public float getFreeLookPitch() {
+		return this.freeLookPitch;
+	}
+
+	@Override
+	public void setFreeLookYaw(float yaw) {
+		this.freeLookYaw = yaw;
+	}
+
+	@Override
+	public float getFreeLookYaw() {
+		return this.freeLookYaw;
 	}
 }

@@ -7,7 +7,9 @@
     "PlayerEntityMixin"
   ],
   "client": [
-    "client.ClientPlayerEntityMixin"
+    "client.CameraMixin",
+    "client.ClientPlayerEntityMixin",
+    "client.MouseMixin"
   ],
   "injectors": {
     "defaultRequire": 1
