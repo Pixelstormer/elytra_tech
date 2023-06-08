@@ -1,4 +1,4 @@
-package com.pixelstorm.elytra_tech;
+package com.pixelstorm.elytra_tech.config;
 
 public class Config {
 	// Amount that is added to velocity by boosting

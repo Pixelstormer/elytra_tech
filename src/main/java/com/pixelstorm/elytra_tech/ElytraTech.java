@@ -8,6 +8,9 @@ import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.pixelstorm.elytra_tech.config.Config;
+import com.pixelstorm.elytra_tech.config.ConfigLoader;
+
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

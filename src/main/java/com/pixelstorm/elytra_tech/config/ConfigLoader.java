@@ -1,4 +1,4 @@
-package com.pixelstorm.elytra_tech;
+package com.pixelstorm.elytra_tech.config;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +13,8 @@ import org.tomlj.TomlInvalidTypeException;
 import org.tomlj.TomlParseError;
 import org.tomlj.TomlParseResult;
 import org.tomlj.TomlTable;
+
+import com.pixelstorm.elytra_tech.ElytraTech;
 
 public class ConfigLoader {
 	public static final String CONFIG_FILENAME = "elytra_tech.toml";
