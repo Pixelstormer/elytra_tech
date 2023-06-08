@@ -29,7 +29,7 @@ public abstract class MouseMixin {
 				float pitchDiff = Math.abs(self.getPitch() - freeLooker.getFreeLookPitch());
 				float yawDiff = Math.abs(self.getYaw() - freeLooker.getFreeLookYaw());
 
-				if (pitchDiff <= 0.1 && yawDiff <= 0.1) {
+				if ((pitchDiff * pitchDiff) + (yawDiff * yawDiff) <= 0.02) {
 					freeLooker.setFreeLooking(false);
 				}
 			} else {
