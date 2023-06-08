@@ -13,7 +13,6 @@ import com.mojang.authlib.GameProfile;
 import com.pixelstorm.elytra_tech.CanFreeLook;
 import com.pixelstorm.elytra_tech.ElytraBooster;
 import com.pixelstorm.elytra_tech.ElytraTech;
-import com.pixelstorm.elytra_tech.ElytraTechClient;
 import com.pixelstorm.elytra_tech.HasElytraBooster;
 
 import net.minecraft.client.input.Input;

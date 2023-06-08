@@ -5,7 +5,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import com.pixelstorm.elytra_tech.CanFreeLook;
-import com.pixelstorm.elytra_tech.ElytraTech;
 import com.pixelstorm.elytra_tech.ElytraTechClient;
 
 import net.minecraft.client.Mouse;

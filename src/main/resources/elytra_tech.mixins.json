@@ -9,6 +9,7 @@
   "client": [
     "client.CameraMixin",
     "client.ClientPlayerEntityMixin",
+    "client.GameRendererMixin",
     "client.MouseMixin"
   ],
   "injectors": {

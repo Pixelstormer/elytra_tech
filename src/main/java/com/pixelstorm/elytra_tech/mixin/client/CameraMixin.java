@@ -18,9 +18,9 @@ public abstract class CameraMixin {
 	@Shadow
 	protected abstract void setRotation(float yaw, float pitch);
 
-	@Redirect(method = "update", at = @At(value = "INVOKE", target = "net/minecraft/client/render/Camera.setRotation(FF)V", ordinal = 0))
+	@Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;setRotation(FF)V", ordinal = 0))
 	private void setFreeLookRotation(Camera self, float yaw, float pitch) {
-		if (this.focusedEntity instanceof CanFreeLook freeLooker && freeLooker.isFreeLooking()) {
+		if (focusedEntity instanceof CanFreeLook freeLooker && freeLooker.isFreeLooking()) {
 			this.setRotation(freeLooker.getFreeLookYaw(), freeLooker.getFreeLookPitch());
 		} else {
 			this.setRotation(yaw, pitch);

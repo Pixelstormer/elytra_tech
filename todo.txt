@@ -1,7 +1,6 @@
 - New mechanics
     - Freelook mechanic
         - Can choose between toggle or hold
-        - Held item/hand model shouldn't follow freelook orientation, should stick to original orientation
         - Roll camera when looking behind self?
     - Auto start flying if midair for too long?
         - Make flying not a separate state, so player is 'flying' at all times when midair?
