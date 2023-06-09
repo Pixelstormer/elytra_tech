@@ -8,7 +8,7 @@ public class ElytraBooster {
 	// Configurable parameters
 
 	// Amount that is added to velocity by boosting
-	public float boostSpeed;
+	public double boostSpeed;
 
 	// Minimum time between each boost, measured in ticks (1/20ths of a second?)
 	public int boostCooldown;
@@ -23,10 +23,10 @@ public class ElytraBooster {
 	private int boostCooldownTimer;
 
 	public ElytraBooster(PlayerEntity player) {
-		this(player, ElytraTech.config.boostSpeed, ElytraTech.config.boostCooldown);
+		this(player, ElytraTech.config.getBoostSpeed(), ElytraTech.config.getBoostCooldown());
 	}
 
-	public ElytraBooster(PlayerEntity player, float boostSpeed, int boostCooldown) {
+	public ElytraBooster(PlayerEntity player, double boostSpeed, int boostCooldown) {
 		this.player = player;
 		this.boostSpeed = boostSpeed;
 		this.boostCooldown = boostCooldown;
@@ -62,13 +62,13 @@ public class ElytraBooster {
 		return shouldBoost;
 	}
 
-	private void lookDirectionBoost(float boostSpeed) {
+	private void lookDirectionBoost(double boostSpeed) {
 		Vec3d rotation = this.player.getRotationVector();
 		Vec3d boost = rotation.multiply(boostSpeed);
 		this.player.addVelocity(boost);
 	}
 
-	private void velocityBoost(float boostSpeed) {
+	private void velocityBoost(double boostSpeed) {
 		Vec3d velocity = this.player.getVelocity();
 		double length = velocity.length() + boostSpeed;
 		Vec3d normalised = velocity.normalize();

@@ -6,7 +6,7 @@ quilt_loader = "0.18.10"
 
 quilted_fabric_api = "6.0.0-beta.6+0.79.0-1.19.4"
 
-tomlj = "1.1.0"
+nightconfig_toml = "3.6.0"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -16,7 +16,7 @@ quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loade
 quilted_fabric_api = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api", version.ref = "quilted_fabric_api" }
 quilted_fabric_api_deprecated = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated", version.ref = "quilted_fabric_api" }
 
-tomlj = { module = "org.tomlj:tomlj", version.ref = "tomlj" }
+nightconfig_toml = { module = "com.electronwill.night-config:toml", version.ref = "nightconfig_toml" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]

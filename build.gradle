@@ -35,15 +35,15 @@ dependencies {
 	modImplementation libs.quilted.fabric.api
 	// modImplementation libs.bundles.quilted.fabric.api // If you wish to use Fabric API's deprecated modules, you can replace the above line with this one
 
-	implementation libs.tomlj
-	shadow libs.tomlj
+	implementation libs.nightconfig.toml
+	shadow libs.nightconfig.toml
 }
 
 shadowJar {
 	configurations = [project.configurations.shadow]
 	archiveClassifier.set('shadow')
 
-	// relocate 'org.tomlj', 'com.pixelstorm.shadow.org.tomlj'
+	relocate 'com.electronwill.nightconfig', 'com.pixelstorm.shadow.com.electronwill.nightconfig'
 }
 
 remapJar {

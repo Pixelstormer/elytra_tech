@@ -38,6 +38,7 @@ public class ElytraTech implements ModInitializer {
 	@Override
 	public void onInitialize(ModContainer mod) {
 		CLASSLOADER = mod.getClassLoader();
+
 		config = ConfigLoader.loadFromDefaultPath();
 		LOGGER.info("Loaded config:");
 		LOGGER.info(config.toString());
