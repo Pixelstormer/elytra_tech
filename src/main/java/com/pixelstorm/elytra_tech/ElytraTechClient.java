@@ -16,7 +16,7 @@ public class ElytraTechClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 		ClientLifecycleEvents.STOPPED.register(client -> {
-			ElytraTech.config.getBackingFile().close();
+			ElytraTech.config.backingFile.close();
 		});
 	}
 }

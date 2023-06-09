@@ -23,7 +23,7 @@ public class ElytraBooster {
 	private int boostCooldownTimer;
 
 	public ElytraBooster(PlayerEntity player) {
-		this(player, ElytraTech.config.getBoostSpeed(), ElytraTech.config.getBoostCooldown());
+		this(player, ElytraTech.config.boosting.speed, ElytraTech.config.boosting.cooldown);
 	}
 
 	public ElytraBooster(PlayerEntity player, double boostSpeed, int boostCooldown) {

@@ -8,7 +8,7 @@ public class ElytraTechServer implements DedicatedServerModInitializer {
 	@Override
 	public void onInitializeServer(ModContainer mod) {
 		ServerLifecycleEvents.STOPPED.register(server -> {
-			ElytraTech.config.getBackingFile().close();
+			ElytraTech.config.backingFile.close();
 		});
 	}
 }
