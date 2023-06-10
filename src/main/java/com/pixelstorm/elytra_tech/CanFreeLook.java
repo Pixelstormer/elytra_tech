@@ -1,5 +1,8 @@
 package com.pixelstorm.elytra_tech;
 
+import org.quiltmc.loader.api.minecraft.ClientOnly;
+
+@ClientOnly
 public interface CanFreeLook {
 	void changeFreeLookDirection(double cursorDeltaX, double cursorDeltaY);
 

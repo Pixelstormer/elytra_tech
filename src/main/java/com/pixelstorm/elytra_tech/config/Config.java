@@ -1,13 +1,19 @@
 package com.pixelstorm.elytra_tech.config;
 
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
+
 import com.electronwill.nightconfig.core.conversion.ObjectConverter;
 import com.electronwill.nightconfig.core.file.FileConfig;
 
-public class Config {
+@me.shedaniel.autoconfig.annotation.Config(name = "Elytra Tech")
+public class Config implements ConfigData, AutoCloseable {
 	// The file that this config was loaded from, and will be saved to
+	@ConfigEntry.Gui.Excluded
 	public transient FileConfig backingFile;
 
 	// Configuration values for elytra boosting
+	@ConfigEntry.Gui.CollapsibleObject(startExpanded = true)
 	public Boosting boosting;
 
 	public Config(FileConfig config) {
@@ -17,6 +23,11 @@ public class Config {
 	public void save() {
 		new ObjectConverter().toConfig(this, backingFile);
 		backingFile.save();
+	}
+
+	@Override
+	public void close() {
+		backingFile.close();
 	}
 
 	@Override

@@ -21,6 +21,7 @@
 		"entrypoints": {
 			"client_init": "com.pixelstorm.elytra_tech.ElytraTechClient",
 			"init": "com.pixelstorm.elytra_tech.ElytraTech",
+			"modmenu": "com.pixelstorm.elytra_tech.ElytraTechModMenu",
 			"server_init": "com.pixelstorm.elytra_tech.ElytraTechServer"
 		},
 		"depends": [
