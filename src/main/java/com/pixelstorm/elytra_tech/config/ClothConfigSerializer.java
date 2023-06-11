@@ -6,6 +6,12 @@ import me.shedaniel.autoconfig.serializer.ConfigSerializer;
 
 @ClientOnly
 public class ClothConfigSerializer implements ConfigSerializer<Config> {
+	public Config config;
+
+	public ClothConfigSerializer(Config config) {
+		this.config = config;
+	}
+
 	@Override
 	public void serialize(Config config) throws SerializationException {
 		config.save();
@@ -13,7 +19,7 @@ public class ClothConfigSerializer implements ConfigSerializer<Config> {
 
 	@Override
 	public Config deserialize() throws SerializationException {
-		return ConfigLoader.loadFromDefaultPath();
+		return config;
 	}
 
 	@Override

@@ -6,6 +6,7 @@
         - Make flying not a separate state, so player is 'flying' at all times when midair?
     - Alt. takeoff: boosting controlled by holding Sneak rather than camera pitch?
         - Or while sprinting, or transitioning from sprinting to sneaking, etc?
+    - Boosting consumes hunger
 
 - Progression: Beacon on ender dragon respawning ritual?
     - Activate any level beacon such that beam intersects the epicenter of the ritual (The point where the beams converge and the dragon spawns)

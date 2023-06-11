@@ -8,6 +8,8 @@ import org.quiltmc.qsl.lifecycle.api.client.event.ClientLifecycleEvents;
 
 import com.pixelstorm.elytra_tech.config.ClothConfigSerializer;
 import com.pixelstorm.elytra_tech.config.Config;
+import com.pixelstorm.elytra_tech.config.ConfigLoader;
+import com.pixelstorm.elytra_tech.config.ConfigLoadingException;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -19,13 +21,32 @@ public class ElytraTechClient implements ClientModInitializer {
 			new KeyBind("key.elytra_tech.elytra.freelook", GLFW.GLFW_KEY_BACKSLASH,
 					"key.categories.elytra_tech"));
 
+	// The error that caused the config to fail to load.
+	// Is null if the config was loaded successfully
+	public static ConfigLoadingException clothConfigLoadingException;
+
 	@Override
 	public void onInitializeClient(ModContainer mod) {
-		AutoConfig.register(Config.class, (annotation, configClass) -> new ClothConfigSerializer());
+		loadClothConfig();
 
 		ClientLifecycleEvents.STOPPED.register(client -> {
-			AutoConfig.getConfigHolder(Config.class).getConfig().close();
+			if (clothConfigLoadingException == null) {
+				AutoConfig.getConfigHolder(Config.class).get().close();
+			}
 			ElytraTech.config.close();
 		});
+	}
+
+	private static void loadClothConfig() {
+		Config config;
+		try {
+			config = ConfigLoader.loadFromDefaultPath();
+		} catch (ConfigLoadingException e) {
+			clothConfigLoadingException = e;
+			return;
+		}
+
+		clothConfigLoadingException = null;
+		AutoConfig.register(Config.class, (annotation, configClass) -> new ClothConfigSerializer(config));
 	}
 }

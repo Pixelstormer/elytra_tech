@@ -1,5 +1,14 @@
 {
   "key.categories.elytra_tech": "Elytra Tech",
   "key.elytra_tech.elytra.freelook": "Elytra Free Look",
-  "subtitles.elytra_tech.elytra.flap": "Elytra flaps"
+  "subtitles.elytra_tech.elytra.flap": "Elytra flaps",
+  "text.autoconfig.elytra_tech.title": "Elytra Tech",
+  "text.autoconfig.elytra_tech.option.boosting": "Elytra Boosting",
+  "text.autoconfig.elytra_tech.option.boosting.@Tooltip": "Elytra Boosting is an alternative to firework rockets, that allows players to use hunger to propel themselves.\nIt is cheaper and easier than using fireworks, but is substantially less maneuverable.\nElytra Boosting is performed by jumping while elytra flying.",
+  "text.autoconfig.elytra_tech.option.boosting.enabled": "Enabled",
+  "text.autoconfig.elytra_tech.option.boosting.enabled.@Tooltip": "Whether or not Elytra Boosting is enabled",
+  "text.autoconfig.elytra_tech.option.boosting.speed": "Speed",
+  "text.autoconfig.elytra_tech.option.boosting.speed.@Tooltip": "Amount that is added to velocity by boosting",
+  "text.autoconfig.elytra_tech.option.boosting.cooldown": "Cooldown",
+  "text.autoconfig.elytra_tech.option.boosting.cooldown.@Tooltip": "Minimum time between each boost, measured in ticks (1/20ths of a second)"
 }

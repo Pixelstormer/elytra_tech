@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.pixelstorm.elytra_tech.config.Config;
 import com.pixelstorm.elytra_tech.config.ConfigLoader;
+import com.pixelstorm.elytra_tech.config.ConfigLoadingException;
 
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
@@ -35,9 +36,7 @@ public class ElytraTech implements ModInitializer {
 
 	@Override
 	public void onInitialize(ModContainer mod) {
-		config = ConfigLoader.loadFromDefaultPath();
-		LOGGER.info("Loaded config:");
-		LOGGER.info(config.toString());
+		loadConfig();
 
 		Registry.register(Registries.SOUND_EVENT, ELYTRA_FLAP_SOUND_ID, ELYTRA_FLAP_SOUND_EVENT);
 
@@ -45,6 +44,20 @@ public class ElytraTech implements ModInitializer {
 			ServerPlayNetworking.registerReceiver(handler, ELYTRA_BOOST_PACKET_ID,
 					ElytraTech::receiveBoostPacket);
 		});
+	}
+
+	private static void loadConfig() {
+		try {
+			config = ConfigLoader.loadFromDefaultPath();
+		} catch (ConfigLoadingException e) {
+			LOGGER.error(String.format(
+					"Could not load config file '%s' as it is malformed! The default config will be loaded instead:",
+					ConfigLoader.getDefaultConfigPath()), e);
+			config = ConfigLoader.loadDefaultConfig();
+		}
+
+		LOGGER.info("Loaded config:");
+		LOGGER.info(config.toString());
 	}
 
 	private static void receiveBoostPacket(MinecraftServer server, ServerPlayerEntity player,

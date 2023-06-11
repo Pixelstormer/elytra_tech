@@ -11,14 +11,13 @@ import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.file.FileConfig;
 import com.electronwill.nightconfig.core.io.ParsingException;
 import com.electronwill.nightconfig.toml.TomlFormat;
-import com.pixelstorm.elytra_tech.ElytraTech;
 
 public class ConfigLoader {
 	public static final String CONFIG_FILENAME = "elytra_tech.toml";
 	public static final URL DEFAULT_CONFIG_RESOURCE_URL = ConfigLoader.class.getClassLoader()
 			.getResource("data/default_config.toml");
 
-	public static Config loadFromDefaultPath() {
+	public static Config loadFromDefaultPath() throws ConfigLoadingException {
 		Path configPath = getDefaultConfigPath();
 		return loadFromPath(configPath);
 	}
@@ -27,26 +26,24 @@ public class ConfigLoader {
 		return QuiltLoader.getConfigDir().resolve(CONFIG_FILENAME);
 	}
 
-	public static Config loadFromPath(Path configPath) {
-		FileConfig fileConfig = loadFileFromPath(configPath);
-		return loadFromFile(fileConfig);
+	public static Config loadFromPath(Path configPath) throws ConfigLoadingException {
+		FileConfig fileConfig = prepareFileForLoading(configPath);
+		return loadFromFile(fileConfig, new Config(fileConfig));
 	}
 
-	public static FileConfig loadFileFromPath(Path configFilePath) {
+	public static FileConfig prepareFileForLoading(Path configFilePath) {
 		return CommentedFileConfig.builder(configFilePath, TomlFormat.instance())
 				.defaultData(DEFAULT_CONFIG_RESOURCE_URL)
 				.build();
 	}
 
-	public static Config loadFromFile(FileConfig fileConfig) {
+	public static Config loadFromFile(FileConfig fileConfig, Config destination) throws ConfigLoadingException {
 		try {
 			fileConfig.load();
-			return new ObjectConverter().toObject(fileConfig, () -> new Config(fileConfig));
+			new ObjectConverter().toObject(fileConfig, destination);
+			return destination;
 		} catch (IllegalArgumentException | ParsingException e) {
-			ElytraTech.LOGGER.error(String.format(
-					"Could not load config file '%s' as it is malformed! The default config will be loaded instead:",
-					fileConfig.getNioPath()), e);
-			return loadDefaultConfig();
+			throw new ConfigLoadingException(e);
 		}
 	}
 
@@ -55,9 +52,13 @@ public class ConfigLoader {
 		try {
 			configPath = Path.of(DEFAULT_CONFIG_RESOURCE_URL.toURI());
 		} catch (URISyntaxException e) {
-			ElytraTech.LOGGER.error("Class loader returned an invalid URI! This should never happen:", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("Class loader returned an invalid URI! This should never happen.", e);
 		}
-		return loadFromPath(configPath);
+
+		try (FileConfig fileConfig = prepareFileForLoading(configPath)) {
+			return loadFromFile(fileConfig, new Config());
+		} catch (ConfigLoadingException e) {
+			throw new RuntimeException("Failed to load default config! This should never happen.", e);
+		}
 	}
 }

@@ -2,7 +2,9 @@
 
 # Configuration values for elytra boosting
 [boosting]
+# Whether or not elytra boosting is enabled
+enabled = true
 # Amount that is added to velocity by boosting
 speed = 0.8
-# Minimum time between each boost, measured in ticks (1/20ths of a second?)
+# Minimum time between each boost, measured in ticks (1/20ths of a second)
 cooldown = 20

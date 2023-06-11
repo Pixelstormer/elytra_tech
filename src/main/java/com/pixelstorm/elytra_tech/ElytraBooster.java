@@ -10,7 +10,7 @@ public class ElytraBooster {
 	// Amount that is added to velocity by boosting
 	public double boostSpeed;
 
-	// Minimum time between each boost, measured in ticks (1/20ths of a second?)
+	// Minimum time between each boost, measured in ticks (1/20ths of a second)
 	public int boostCooldown;
 
 	// Internal state
